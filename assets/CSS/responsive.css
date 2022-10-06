@@ -1,0 +1,203 @@
+@media (max-width: 1023px) {
+    html {
+        font-size: 55%;
+    }
+    .header__top {
+        padding: 0 4%;
+    }
+    .navbar {
+        display: none;
+    }
+
+    /* search  */
+    .search__form {
+        width: 100%;
+    }
+    .search__categories {
+        flex-direction: column;
+        padding: 0 0;
+    }
+    .search__categories-item {
+        width: 100%;
+    }
+    .search__categories-item:not(:last-child) {
+        margin-bottom: 3rem;
+    }
+
+    /* hoiliday */
+    .hoiliday-packages__container {
+        flex-direction: column;
+    }
+    .hoiliday-packages__title, 
+    .hoiliday-packages-btn {
+        margin-left: 0;
+    }
+    .hoiliday-packages__title {
+        margin-bottom: 4rem;
+    }
+    .hoiliday-packages-btn {
+        text-align: center;
+        display: inline-block;
+    }
+
+
+    /* best    */
+    .best__slider-container {
+        margin-top: 8rem;
+    }
+
+    .best__countdown {
+        width: 100%;
+    }
+    
+    .tour__item {
+        margin-bottom: 4rem;
+    }
+
+    /* footer    */
+    .footer__title-content {
+        padding-left:  0;
+    }
+    .footer__search {
+        margin-top: 6rem;
+    }
+    .footer__search-form {
+        width: 80%;
+    }
+    .footer__btn {
+        width: 20%;
+        margin-left: 3rem;
+    }
+
+    .c-btn-medium {
+        display: block;
+        max-width: 25rem;
+        text-align: center;
+        margin: auto;
+    }
+    .c-m-full-width {
+        width: 100%;
+        display: block;
+        text-align: center;
+        font-size: 1.4rem;
+    }
+}
+@media (min-width: 740px) and (max-width: 1023px) {
+    .footer__container {
+        padding: 0;
+    }
+}
+/* Mobile */
+@media (max-width: 739px) {
+    .pc-menu__container {
+        width: 100%;
+    }
+    .search {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20rem;
+    }
+    .destinations {
+        padding: 0 2rem;
+    }
+    .best {
+        padding: 8rem 2rem;
+    }
+    .best__countdown {
+        position:unset;
+        width: 100%;
+        left: 0;
+        transform: translateY(0);
+    }
+    .best__countdown-item:hover {
+        background-color: #3498db;
+    }
+    .tour {
+        padding: 0 2rem;
+    }
+    .best__countdown {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    .best__countdown-item {
+        padding: 2rem 0;
+        border-bottom: 1px solid #f1f1f1;
+        width: 100%;
+    }
+    .best__countdown-item::after {
+        content: "";
+    }
+    .package {
+        padding: 8rem 2rem;
+    }
+
+
+
+
+    /* footer  */
+    .footer {
+        padding-bottom: 0;
+    }
+    .footer__container {
+        padding: 0 4rem;
+    }
+    .footer__search-form, .footer__btn {
+        width: 100%;
+        display: block;
+    }
+    .footer__btn {
+        margin-left: 0;
+        text-align: center;
+        margin-top: 2rem;
+    }
+    .footer__footer {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer__item-title {
+        margin-bottom: 1rem;
+    }
+    .footer_author {
+        margin-bottom: 1rem;
+    }
+    
+
+    /* Package section    */
+    .pk-search {
+        padding-bottom: 0;
+    }
+    .pk-search__heading-content {
+        padding-left: 5rem;
+    }
+    .pk-search__item {
+        margin-top: 3rem;
+    }
+    .pk-search__title {
+        margin-bottom: 1rem;
+    }
+    .pk-package__list {
+        padding: 6rem 3rem;
+    }
+    .pk-search__content {
+        border: none;
+    }
+    .pk-package__item {
+        flex-direction: column;
+    }
+    .pk-package__img {
+        width: 100%;
+    }
+    .filter__wrapper {
+        top: 210%;
+        flex-direction: column;
+        width: 88%;
+        padding: 1rem 3rem;
+    }
+    .filter__list {
+        width: 100%;
+    }
+    .filter__wrapper::after {
+        display: none;
+    }
+}

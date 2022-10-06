@@ -1,0 +1,26 @@
+collector {
+  interface = "0.0.0.0"
+  port = 8080
+
+  p3p {
+    policyRef = "/w3c/p3p.xml"
+    CP = "NOI DSP COR NID PSA OUR IND COM NAV STA"
+  }
+
+  crossDomain {
+    enabled = false
+    # Domains that are granted access, *.acme.com will match http://acme.com and http://sub.acme.com
+    domains = [ "*" ]
+    # Whether to only grant access to HTTPS or both HTTPS and HTTP sources
+    secure = true
+  }
+
+  streams {
+    good = "good"
+    bad = "bad"
+
+    sink {
+      brokers = "kafka:9092"
+    }
+  }
+}
