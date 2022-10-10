@@ -15,6 +15,8 @@ services:
   kafka:
     image: confluentinc/cp-kafka
     container_name: kafka
+    ports:
+      - "9092:9092"
     depends_on:
       - zookeeper
     environment:
@@ -26,7 +28,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
       - snowplow
-
+  
   collector-server:     
     container_name: collector
     image: snowplow/scala-stream-collector-kafka:2.6.1
@@ -34,10 +36,70 @@ services:
     command: --config /snowplow/config/config.hocon
     depends_on:
       - kafka
-      - zookeeper
     ports:
       - "8080:8080"
     volumes:
-      - "./config.hocon:/snowplow/config/config.hocon" 
+      - "./connector-config/connector-config.hocon:/snowplow/config/config.hocon" 
+    environment:
+      SP_JAVA_OPTS: -Xms512m -Xmx512m
+      IGLU_SUPER_API_KEY: ${IGLU_SUPER_API_KEY:-5fb4713d-73ad-4163-93a9-2b82f0177c5b}
+      IGLU_DB_PASSWORD: ${IGLU_DB_PASSWORD:-iglusecret}
     networks:
       - snowplow
+
+  stream-enrich:
+    image: snowplow/stream-enrich-kafka
+    command: [
+      "--config", "/snowplow/config/config.hocon",
+      "--resolver", "file:/snowplow/config/resolver.json"
+    ]
+    depends_on:
+      - collector-server
+    volumes:
+      - ./stream-enrich-config:/snowplow/config
+    networks:
+      - snowplow
+
+  postgres:
+    container_name: postgres
+    image: postgres:12
+    restart: always
+    ports:
+      - "5432:5432"
+    logging:
+      options:
+        max-size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_DB: igludb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${IGLU_DB_PASSWORD:-iglusecret}
+    networks:
+      - snowplow
+
+  iglu-server:
+    container_name: iglu-server
+    image: snowplow/iglu-server:${IGLU_VERSION:-0.8.5}
+    command: --config /snowplow/config/config.hocon
+    environment:
+      IGLU_SUPER_API_KEY: ${IGLU_SUPER_API_KEY:-5fb4713d-73ad-4163-93a9-2b82f0177c5b}
+      IGLU_DB_PASSWORD: ${IGLU_DB_PASSWORD:-iglusecret}
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8081"
+    volumes:
+      - "./iglu-server-config/igluconfig.hocon:/snowplow/config/config.hocon"
+    logging:
+      options:
+        max-size: 1G
+    networks:
+      - snowplow
+  
+
+  
+  

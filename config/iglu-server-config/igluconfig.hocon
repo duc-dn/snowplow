@@ -1,0 +1,40 @@
+{
+  "repoServer": {
+    "interface": "0.0.0.0"
+    "baseURL": "localhost:8081"
+    "port": 8081
+
+    # Configure execution context used by BlazeServer for executing Futures.
+    "threadPool": "cached" # use a CachedThreadPool
+    # "threadPool": "global" # the global ExecutionContext
+    # "threadpool": {
+    #   "type": "fixed" # A fixed size thread pool
+    #   "size": 4
+    # }
+
+    # How long a connection can remain idle before the connection is timed out and disconnected.  Default 60 seconds.
+    "idleTimeout": 60 seconds
+
+    # The maximum number of client connections that may be active at any time. Default 1024.
+    "maxConnections": 1024
+  }
+
+  "database": {
+    "type": "postgres"
+    "host": "postgres"
+    "port": "5432"
+    "dbname": "igludb"
+    "username": "postgres"
+    "password": ${IGLU_DB_PASSWORD}
+    "driver": "org.postgresql.Driver"
+  }
+
+  "superApiKey": ${?IGLU_SUPER_API_KEY}
+
+
+  # Enable additional debug endpoint to output all internal state
+  debug = true
+
+  # Allow to overwrite and delete schemas, making the server dev-only
+  patchesAllowed = true
+}
